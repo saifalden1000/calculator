@@ -1,35 +1,63 @@
-﻿Console.Write("Enter the first number: ");
-double firstNumber = Convert.ToDouble(Console.ReadLine());
-
-Console.Write("Enter the second number: ");
-double secondNumber = Convert.ToDouble(Console.ReadLine());
-
-Console.Write("Enter an operation (+, -, *, /): ");
-string operation = Console.ReadLine();
-
-double result;
-
-switch (operation)
+﻿
+while (true)
 {
-    case "+":
-        result = firstNumber + secondNumber;
-        break;
+    Console.Write("Enter the first number: ");
+    if (!double.TryParse(Console.ReadLine(), out double firstNumber))
+    {
+        Console.WriteLine("Invalid number. Please try again.");
+        continue;
+    }
 
-    case "-":
-        result = firstNumber - secondNumber;
-        break;
+    Console.Write("Enter the second number: ");
+    if (!double.TryParse(Console.ReadLine(), out double secondNumber))
+    {
+        Console.WriteLine("Invalid number. Please try again.");
+        continue;
+    }
 
-    case "*":
-        result = firstNumber * secondNumber;
-        break;
+    Console.Write("Enter an operation (+, -, *, /): ");
+    string operation = Console.ReadLine();
 
-    case "/":
-        result = firstNumber / secondNumber;
-        break;
+    double result;
 
-    default:
-        Console.WriteLine("Invalid operation.");
-        return;
+    switch (operation)
+    {
+        case "+":
+            result = firstNumber + secondNumber;
+            break;
+
+        case "-":
+            result = firstNumber - secondNumber;
+            break;
+
+        case "*":
+            result = firstNumber * secondNumber;
+            break;
+
+        case "/":
+            if (secondNumber == 0)
+            {
+                Console.WriteLine("Cannot divide by zero.");
+                continue;
+            }
+
+            result = firstNumber / secondNumber;
+            break;
+
+        default:
+            Console.WriteLine("Invalid operation.");
+            continue;
+    }
+
+    Console.WriteLine($"Result: {result}");
+
+    Console.Write("Do you want to perform another calculation? (y/n): ");
+    string again = Console.ReadLine();
+
+    if (again?.ToLower() != "y")
+    {
+        break;
+    }
+
+    Console.WriteLine();
 }
-
-Console.WriteLine($"Result: {result}");
